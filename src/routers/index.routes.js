@@ -1,9 +1,9 @@
 import { Router } from "express";
 import usersRoutes from './users.routes.js'
-import entriesRoutes from './entries.routes.js'
+import transactionsRoutes from './transactions.routes.js'
 
 const router = Router();
 
-router.use([usersRoutes, entriesRoutes]);
+router.use([usersRoutes, transactionsRoutes]);
 
 export default router;

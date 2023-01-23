@@ -1,7 +1,7 @@
 import db from "../database/database.js";
-import { entrySchema } from "../schemas/entries.schema.js";
+import { transactionSchema } from "../schemas/transactions.schema.js";
 
-export async function verifyEntry(req, res, next){
+export async function verifyTransaction(req, res, next){
     const {authorization} = req.headers;
     const token = authorization?.replace('Bearer ', '');
 
@@ -10,7 +10,8 @@ export async function verifyEntry(req, res, next){
 
     const {body} = req;
 
-    const {error} = entrySchema.validate(body, {abortEarly:false});
+    const {error} = transactionSchema.
+        validate(body, {abortEarly:false});
 
     if (error){
         const errors = error.details.
