@@ -13,7 +13,7 @@ export async function validateSignUp(req, res, next){
         return res.status(500).send(errors);
     }
 
-    const {name, email, password, confirmPassword} = body;
+    const {name, email, password} = body;
     try {
         const userFound = await db.collection('users').findOne({ email });
         if (userFound)
@@ -23,7 +23,11 @@ export async function validateSignUp(req, res, next){
         res.status(500).send(error);
     }
 
-    res.locals.user = body;
+    res.locals.user = {
+        name,
+        email,
+        password
+    };
 
     next();
 
