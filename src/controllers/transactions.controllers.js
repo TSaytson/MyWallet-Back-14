@@ -32,7 +32,7 @@ export async function getTransactions(req,res){
         const session = await db.
             collection('sessions').findOne({token});
         const transactions = await db.collection('transactions').
-            find({userId: ObjectId(session.userId)}).sort({date:1}).toArray();
+            find({userId: ObjectId(session.userId)}).sort({formatedDate:1}).toArray();
         res.status(200).send(transactions);
     } catch(error){
         console.log(error);
