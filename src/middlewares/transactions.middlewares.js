@@ -8,10 +8,8 @@ export async function verifyTransaction(req, res, next){
     if (!token)
         return res.status(401).send('Não autorizado');
 
-    const {body} = req;
-
     const {error} = transactionSchema.
-        validate(body, {abortEarly:false});
+        validate(req.body, {abortEarly:false});
 
     if (error){
         const errors = error.details.
@@ -30,7 +28,7 @@ export async function verifyTransaction(req, res, next){
         if (!user)
             return res.status(401).send('Usuário não cadastrado');
         res.locals.session = session;
-        res.locals.entry = body;
+        res.locals.entry = req.body;
     } catch(error){
         console.log(error);
         return res.status(500).send(error);
