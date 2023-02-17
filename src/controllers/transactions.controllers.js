@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 export async function postTransaction(req, res){
     const {entry, session} = res.locals;
     const {value, description, date, type} = entry;
-    const formatedDate = dayjs(date).format('DD/MM HH:mm').toString();
+    const formatedDate = dayjs(date).format('DD/MM').toString();
     try {
         await db.collection('transactions').insertOne({
             userId: session.userId,
