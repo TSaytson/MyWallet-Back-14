@@ -5,14 +5,13 @@ import { ObjectId } from "mongodb";
 export async function postTransaction(req, res){
     const {entry, session} = res.locals;
     const {value, description, date, type} = entry;
-    const formatedDate = dayjs(date).format('DD/MM').toString();
     try {
         await db.collection('transactions').insertOne({
             userId: session.userId,
             value,
             description,
             type,
-            formatedDate
+            date
         });
         return res.status(201).send(`Carteira atualizada: ${description}, R$${value}, ${date}`);
     } catch(error){
@@ -32,8 +31,8 @@ export async function getTransactions(req,res){
         const session = await db.
             collection('sessions').findOne({token});
         const transactions = await db.collection('transactions').
-            find({userId: ObjectId(session.userId)}).sort({formatedDate:1}).toArray();
-        res.status(200).send(transactions);
+            find({userId: ObjectId(session.userId)}).sort({date:1}).toArray();
+        return res.status(200).send(transactions);
     } catch(error){
         console.log(error);
         return res.status(500).send(error);
