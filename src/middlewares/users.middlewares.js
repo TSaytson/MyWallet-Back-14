@@ -52,7 +52,8 @@ export async function validateSignIn(req, res, next){
 
             res.locals.user = userFound;
         else
-            return res.status(404).send('Credenciais incorretas');
+            return res.status(404).send(
+                {message:'Credenciais incorretas'});
         
     } catch(error){
         console.log(error);
