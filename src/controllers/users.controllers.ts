@@ -1,25 +1,16 @@
-import db from "../database/database.js";
-import bcrypt from 'bcrypt';
+import { User } from "../models/User";
+import db from "../database/database";
+import { Request, Response } from "express";
 import { v4 as uuid } from 'uuid';
+import { usersService } from "../services/users.service";
 
-export async function signUp(req, res) {
-    const { user } = res.locals;
-
-    const hashedPassword = bcrypt.hashSync(user.password, 10);
-
-    try {
-        await db.collection('users').insertOne({
-            ...user,
-            password: hashedPassword
-        });
-        res.status(201).send('Usuário cadastrado');
-    } catch (error) {
-        console.log(error);
-        res.status(500).send(error);
-    }
+export async function signUp(req:Request, res:Response) {
+    const user:User = req.body;
+    await usersService.SignUp(user);
+    res.status(201).send({message: `User ${user.name} registred`})
 }
 
-export async function signIn(req, res) {
+export async function signIn(req:Request, res:Response) {
     const { user } = res.locals;
     try {
         const session = await db.
