@@ -15,15 +15,16 @@ export function validateParams(schema: Schema){
 
 function validate(schema:Schema, type: 'body' | 'params' | 'query'){
   return (req: Request, res: Response, next: NextFunction) => {
-    const {error} = schema.validate(req[type], {abortEarly: false})
+    const {value, error} = schema.validate(req[type], {abortEarly: false})
     if (error){
       const errors = error.details.map(
-        (error) => error
+        (error) => error.message
       )
       console.log(errors);
       res.status(422).send(errors);
       return;
     }
+    res.locals.validated = value;
     next();
   }
 }

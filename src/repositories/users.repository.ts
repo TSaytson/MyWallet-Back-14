@@ -1,5 +1,5 @@
-import { User } from "../models/User";
-import db from "../database/database";
+import { User } from "../models/User.js";
+import db from "../database/database.js";
 import { ObjectId } from "mongodb";
 
 const usersCollection = db.collection<User>('users');

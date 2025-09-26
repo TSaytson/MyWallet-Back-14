@@ -1,6 +1,6 @@
-import { IError } from "../protocols/index";
-import { AppError, errorStatusCode, isAppError } from "../utils/errorUtils";
 import { NextFunction, Request, Response } from "express";
+import { AppError, errorStatusCode, isAppError } from "@/utils/errorUtils.js";
+import { IError } from "@/protocols/index.js";
 
 export function errorHandlerMiddleware(
   error: IError | AppError,

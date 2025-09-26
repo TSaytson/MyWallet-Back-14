@@ -6,21 +6,14 @@
     "moduleResolution": "node",
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["./*"]
     },
-    "plugins": [
-      {"transform" : "typescript-transform-paths"}
-    ],
     "rootDirs": ["./src", "./tests"],
     "resolveJsonModule": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "esModuleInterop": true,
     "strictNullChecks": true,
   },
-  "ts-node": {
-    "esm": true,
-    "transpileOnly": true,
-    "require": ["typescript-transform-paths/register"]
-  },
-  "include": ["src","tests"]
+  "include": ["src/**/*","tests"],
+  "exclude": ["node_modules"]
 }
