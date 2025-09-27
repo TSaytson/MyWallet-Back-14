@@ -28,13 +28,15 @@ async function SignIn({ email, password }: Pick<User, 'email' | 'password'>) {
     throw userUnauthorizedError();
 
   const session = await sessionsRepository.findByUserId(userFound._id);
-
+  
+  const name = `${userFound.firstName} ${userFound.lastName[0]}.`
+  
   if (!session) {
     const token = await createOrUpdateSession(userFound._id, email);
-    return { name: userFound.name, token }
+    return {name, token }
   } else {
     const token = await createOrUpdateSession(userFound._id, email, session.token);
-    return {name: userFound.name, token}
+    return {name, token}
   }
 }
 

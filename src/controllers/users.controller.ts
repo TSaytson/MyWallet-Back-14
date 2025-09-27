@@ -3,9 +3,9 @@ import { Request, Response } from "express";
 import { usersService } from "../services/users.service.js";
 
 export async function signUp(req:Request, res:Response) {
-    const {name, email, password} = req.body as User;
-    await usersService.SignUp({name, email, password});
-    res.status(201).send({message: `User ${name} registred`})
+    const {firstName, lastName, email, password} = req.body as User;
+    await usersService.SignUp({firstName, lastName, email, password});
+    res.status(201).send({message: `User ${firstName} registred`})
 }
 
 export async function signIn(req:Request, res:Response) {
